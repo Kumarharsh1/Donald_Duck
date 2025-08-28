@@ -3,9 +3,9 @@ const serverless = require('serverless-http');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// Import routes
-const contactRoutes = require('../routes/contactRoutes');
-const projectRoutes = require('../routes/projectRoutes');
+// Import routes - FIXED PATHS (files are in same directory)
+const contactRoutes = require('./contactRoutes');    // Changed from '../routes/contactRoutes'
+const projectRoutes = require('./projectRoutes');    // Changed from '../routes/projectRoutes'
 
 // Create express app
 const app = express();
@@ -46,6 +46,13 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is healthy', timestamp: new Date() });
 });
 
+// For local development
+if (require.main === module) {
+  const PORT = process.env.PORT || 5112;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
 // Export the serverless app
-module.exports = app;
 module.exports.handler = serverless(app);
