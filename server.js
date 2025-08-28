@@ -47,12 +47,12 @@ app.get('/api/health', (req, res) => {
 });
 
 // For local development
-if (require.main === module) {
-  const PORT = process.env.PORT || 5112;
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+
+const PORT = process.env.PORT || 5112;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 // Export the serverless app
 module.exports.handler = serverless(app);
+
